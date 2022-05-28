@@ -1,5 +1,6 @@
 import axios from "axios";
 
-export default axios.create({
-  baseURL: "https://book-my-concert.herokuapp.com",
+const rave = axios.create({
+  baseURL: "https://rave-square.herokuapp.com",
 });
+export default rave;
