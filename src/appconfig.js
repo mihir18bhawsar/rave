@@ -1,8 +1,8 @@
 const obj = {
   color: {
-    primary: "#de6a58",
+    primary: "#ae9a28",
     font: "#eee",
-    secondary: "#ff8a76",
+    secondary: "#eeda26",
     dark: "#252533",
   },
 };

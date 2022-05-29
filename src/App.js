@@ -1,12 +1,15 @@
 import { toast, ToastContainer } from "react-toastify";
+import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { Route, Switch, Router } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
 import Home from "./Pages/Home";
 import history from "./history";
 import Background from "./Components/Background";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import Topbar from "./Components/Topbar";
+import SessionCheck from "./Components/SessionCheck";
 
 function App() {
   const toastredux = useSelector((state) => state.toast);
@@ -20,16 +23,21 @@ function App() {
     <>
       <Router history={history}>
         <Background />
-        <div className="w-full h-screen">
-          <ToastContainer
-            draggable={false}
-            autoClose={3000}
-            position={"bottom-center"}
-          />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-          </Switch>
+        <SessionCheck />
+        <div className="w-full h-full py-16">
+          <Topbar />
+          <div className="w-full h-full mt-8">
+            <ToastContainer
+              draggable={false}
+              autoClose={3000}
+              position={"bottom-center"}
+            />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path={"/signup"} component={Signup} />
+            </Switch>
+          </div>
         </div>
       </Router>
     </>

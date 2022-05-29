@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import apiService from "../Api/apiService";
 import appconfig from "../appconfig";
-import { useDispatch } from "react-redux";
-import { toastMessage } from "../Actions";
+import { useDispatch, useSelector } from "react-redux";
+import { login, toastMessage } from "../Actions";
 import { useHistory } from "react-router-dom";
 import { Box, TextField, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,7 @@ import Loading from "../Components/Loading";
 const Login = (props) => {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
   const {
     register,
@@ -22,9 +23,7 @@ const Login = (props) => {
     let res;
     try {
       res = await apiService.post("/user/login", formdata);
-      window.sessionStorage.setItem("token", res.data.token);
-      await dispatch(toastMessage(1, "Logged in successfully!"));
-      history.push("/");
+      await dispatch(login(res.data.token));
     } catch (err) {
       err.response.data.status === "fail" &&
         dispatch(toastMessage(0, err.response.data.message));
@@ -33,6 +32,10 @@ const Login = (props) => {
   };
 
   useEffect(() => {
+    if (isLoggedIn) {
+      history.push("/");
+      dispatch(toastMessage(1, "Already Logged In"));
+    }
     setLoading(false);
   }, []);
 
@@ -45,8 +48,8 @@ const Login = (props) => {
         className="w-full border-x-4 border-white flex-col backdrop-blur-lg gap-8 flex items-center h-full sm:h-fit sm:w-5/12 rounded-3xl shadow-slate-800 shadow-2xl"
       >
         <h1
-          className="uppercase mt-4 font-bold text-red-100 text-4xl"
-          style={{ textShadow: `0 0 15px ${appconfig.color.font}` }}
+          className="uppercase mt-4 font-bold text-yellow-400 text-4xl"
+          style={{ textShadow: `0 0 15px ${appconfig.color.secondary}` }}
         >
           Login
         </h1>
