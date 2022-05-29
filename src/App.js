@@ -5,10 +5,11 @@ import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import history from "./history";
 import Background from "./Components/Background";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
-function App({ toastredux }) {
+function App() {
+  const toastredux = useSelector((state) => state.toast);
   useEffect(() => {
     if (toastredux.type === 0) {
       toast.error(toastredux.value);
@@ -34,8 +35,5 @@ function App({ toastredux }) {
     </>
   );
 }
-const mapStateToProps = (state) => {
-  return { toastredux: state.toast };
-};
 
-export default connect(mapStateToProps)(App);
+export default App;

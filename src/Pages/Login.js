@@ -1,36 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import apiService from "../Api/apiService";
 import appconfig from "../appconfig";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toastMessage } from "../Actions";
-import {
-  Container,
-  Box,
-  TextField,
-  Button,
-  Typography,
-} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { Box, TextField, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
+import Loading from "../Components/Loading";
 
 const Login = (props) => {
+  const [loading, setLoading] = useState(true);
+  const history = useHistory();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = async (formdata) => {
+    setLoading(true);
     let res;
     try {
       res = await apiService.post("/user/login", formdata);
       window.sessionStorage.setItem("token", res.data.token);
-      props.toastMessage(1, "Logged in successfully!");
+      await dispatch(toastMessage(1, "Logged in successfully!"));
+      history.push("/");
     } catch (err) {
       err.response.data.status === "fail" &&
-        props.toastMessage(0, err.response.data.message);
+        dispatch(toastMessage(0, err.response.data.message));
     }
+    setLoading(false);
   };
 
-  return (
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <Box
         style={{ backgroundColor: "rgba(125,125,125,0.5)" }}
@@ -103,4 +111,4 @@ const Login = (props) => {
   );
 };
 
-export default connect(null, { toastMessage })(Login);
+export default Login;
