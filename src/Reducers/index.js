@@ -9,7 +9,6 @@ const allReducers = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === "SESSION_REFRESH") state = undefined;
   return allReducers(state, action);
 };
 export default rootReducer;
