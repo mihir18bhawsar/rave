@@ -1,5 +1,5 @@
 import { AccountCircle } from "@material-ui/icons";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../Actions";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,6 +9,8 @@ import logo from "../Assets/images/logo.png";
 const Topbar = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const role = useSelector((state) => state.role);
+
   return (
     <div
       style={{
@@ -43,17 +45,18 @@ const Topbar = () => {
           >
             About
           </div>
-          {isLoggedIn && (
+          {isLoggedIn && role === "admin" && (
             <>
-              <div
+              <Link
+                to={"/managers/requests"}
                 className="hover:scale-110 cursor-pointer duration-150 hover:underline"
                 style={{
                   textUnderlineOffset: 4,
                   textDecorationThickness: 2,
                 }}
               >
-                Link1
-              </div>
+                Requests
+              </Link>
               <div
                 className="hover:scale-110 cursor-pointer duration-150 hover:underline"
                 style={{

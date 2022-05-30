@@ -22,7 +22,7 @@ const SessionCheck = () => {
     return () => {
       unlisten();
     };
-  }, []);
+  }, [isLoggedIn]);
   return null;
 };
 

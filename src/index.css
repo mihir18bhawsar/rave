@@ -13,3 +13,12 @@
   border-radius: 10px;
   background-color: darkslategrey;
 }
+.hide-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+.hide-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.hide-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #c0aa11;
+}

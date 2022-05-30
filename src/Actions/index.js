@@ -8,7 +8,8 @@ export const toastMessage = (type, message) => {
 export const logout = () => async (dispatch) => {
   await sessionStorage.removeItem("token");
   await dispatch({ type: "LOGOUT", payload: false });
-  dispatch(toastMessage(1, "Logged Out!"));
+  await dispatch({ type: "SESSION_REFRESH", payload: null });
+  await dispatch(toastMessage(1, "Logged Out!"));
 };
 
 export const login = (token) => async (dispatch) => {

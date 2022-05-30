@@ -42,7 +42,7 @@ const Login = (props) => {
   return loading ? (
     <Loading />
   ) : (
-    <div className="w-full h-full flex flex-col items-center justify-center">
+    <div className="w-full mt-12 flex flex-col items-center justify-center">
       <Box
         style={{ backgroundColor: "rgba(125,125,125,0.5)" }}
         className="w-full border-x-4 border-white flex-col backdrop-blur-lg gap-8 flex items-center h-full sm:h-fit sm:w-5/12 rounded-3xl shadow-slate-800 shadow-2xl"

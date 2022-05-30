@@ -59,7 +59,7 @@ const Signup = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div className="w-full h-full flex flex-col items-center justify-center">
+    <div className="w-full mt-12 flex flex-col items-center justify-center">
       <Box
         style={{ backgroundColor: "rgba(125,125,125,0.5)" }}
         className="w-full border-x-4 border-white flex-col backdrop-blur-lg gap-8 flex items-center h-full sm:h-fit sm:w-5/12 rounded-3xl shadow-slate-800 shadow-2xl"
@@ -73,9 +73,9 @@ const Signup = () => {
         <p className="uppercase tracking-widest text-white text-xs">
           Please enter the details
         </p>
-        <div className="flex flex-col items-center gap-8 w-full h-full shadow-2xl">
+        <div className="flex flex-col h-96  items-center gap-8 w-full shadow-2xl">
           <form
-            className="w-7/12 bg-transparent flex flex-col items-center gap-8 py-8 h-full"
+            className="w-7/12 bg-transparent overflow-y-scroll hide-scrollbar p-4 pt-0 mt-4 flex flex-col items-center gap-8 py-8 h-full"
             onSubmit={handleSubmit(onSubmit)}
           >
             {/*name, email, pass, birth, gen, role // mana-> conta , bank , acc , ifcs*/}

@@ -1,5 +1,5 @@
 import { toast, ToastContainer } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { Route, Switch, Router } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -10,9 +10,13 @@ import history from "./history";
 import Background from "./Components/Background";
 import Topbar from "./Components/Topbar";
 import SessionCheck from "./Components/SessionCheck";
+import NotFound from "./Components/NotFound";
+import ManagerRequests from "./Pages/ManagerRequests";
 
 function App() {
   const toastredux = useSelector((state) => state.toast);
+  const role = useSelector((state) => state.role);
+
   useEffect(() => {
     if (toastredux.type === 0) {
       toast.error(toastredux.value);
@@ -24,20 +28,27 @@ function App() {
       <Router history={history}>
         <Background />
         <SessionCheck />
-        <div className="w-full h-full py-16">
+        <div className="relative w-full py-16">
           <Topbar />
-          <div className="w-full h-full mt-8">
-            <ToastContainer
-              draggable={false}
-              autoClose={3000}
-              position={"bottom-center"}
-            />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/login" component={Login} />
-              <Route path={"/signup"} component={Signup} />
-            </Switch>
-          </div>
+          <ToastContainer
+            draggable={false}
+            autoClose={3000}
+            position={"bottom-center"}
+          />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path={"/home"} component={Home} />
+            {role === "admin" && (
+              <Route
+                exact
+                path="/managers/requests"
+                component={ManagerRequests}
+              />
+            )}
+            <Route exact path="/login" component={Login} />
+            <Route exact path={"/signup"} component={Signup} />
+            <Route path="*" component={NotFound} />
+          </Switch>
         </div>
       </Router>
     </>

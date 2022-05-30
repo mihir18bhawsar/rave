@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 const token = sessionStorage.getItem("token");
-const exp = token && Date.now() - jwtDecode(token).iat * 1000;
+const exp = token && Number(Date.now()) - Number(jwtDecode(token).iat * 1000);
 const INITIAL = token && exp < 3600000 ? true : false;
 
 const reducer = (state = INITIAL, action) => {

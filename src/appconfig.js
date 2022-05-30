@@ -5,5 +5,6 @@ const obj = {
     secondary: "#eeda26",
     dark: "#252533",
   },
+  url: "https://rave-square.herokuapp.com",
 };
 export default obj;
