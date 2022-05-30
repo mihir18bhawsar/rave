@@ -10,6 +10,7 @@ export const logout = () => async (dispatch) => {
   await dispatch({ type: "LOGOUT", payload: false });
   await dispatch({ type: "SESSION_REFRESH", payload: null });
   await dispatch(toastMessage(1, "Logged Out!"));
+  history.push("/");
 };
 
 export const login = (token) => async (dispatch) => {

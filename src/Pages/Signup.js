@@ -78,7 +78,38 @@ const Signup = () => {
             className="w-7/12 bg-transparent overflow-y-scroll hide-scrollbar p-4 pt-0 mt-4 flex flex-col items-center gap-8 py-8 h-full"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {/*name, email, pass, birth, gen, role // mana-> conta , bank , acc , ifcs*/}
+            <div className="flex gap-4 w-full">
+              <Chip
+                variant="filled"
+                className="w-full cursor-pointer"
+                label="User"
+                onClick={() => setRole("customer")}
+                style={{
+                  color: role === "customer" && appconfig.color.secondary,
+                  backgroundColor: role == "customer" && appconfig.color.dark,
+                }}
+              />
+              <Chip
+                variant="filled"
+                className="w-full cursor-pointer"
+                label="Manager"
+                onClick={() => setRole("manager")}
+                style={{
+                  color: role === "manager" && appconfig.color.secondary,
+                  backgroundColor: role == "manager" && appconfig.color.dark,
+                }}
+              />
+              {/* <Chip
+                label="Admin"
+                className=" w-full cursor-pointer"
+                variant="filled"
+                onClick={() => setRole("admin")}
+                style={{
+                  color: role === "admin" && appconfig.color.secondary,
+                  backgroundColor: role == "admin" && appconfig.color.dark,
+                }}
+              /> */}
+            </div>
             <TextField
               variant="filled"
               type={"text"}
@@ -263,38 +294,6 @@ const Signup = () => {
                 />
               </RadioGroup>
             </FormControl>
-            <div className="flex gap-4 w-full">
-              <Chip
-                variant="filled"
-                className="w-full cursor-pointer"
-                label="User"
-                onClick={() => setRole("customer")}
-                style={{
-                  color: role === "customer" && appconfig.color.secondary,
-                  backgroundColor: role == "customer" && appconfig.color.dark,
-                }}
-              />
-              <Chip
-                variant="filled"
-                className="w-full cursor-pointer"
-                label="Manager"
-                onClick={() => setRole("manager")}
-                style={{
-                  color: role === "manager" && appconfig.color.secondary,
-                  backgroundColor: role == "manager" && appconfig.color.dark,
-                }}
-              />
-              <Chip
-                label="Admin"
-                className=" w-full cursor-pointer"
-                variant="filled"
-                onClick={() => setRole("admin")}
-                style={{
-                  color: role === "admin" && appconfig.color.secondary,
-                  backgroundColor: role == "admin" && appconfig.color.dark,
-                }}
-              />
-            </div>
             <div className="px-20 mt-4 rounded-2xl w-full flex justify-center">
               <Button
                 size="large"
