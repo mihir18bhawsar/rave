@@ -18,7 +18,7 @@ const Home = () => {
     apiService.get("/user/cities").then((res) => {
       setCities(res.data.data);
       apiService.get("/concert/recently-posted").then((res) => {
-        setConcerts(res.data.data.filter((c) => c.isActive));
+        setConcerts(res.data.data);
         setLoading(false);
       });
     });
@@ -98,12 +98,12 @@ const Home = () => {
             {concerts.map((con) => (
               <Link to={"/concert/" + con._id}>
                 <div
-                  className="w-full px-12 h-96 mt-4"
+                  className="w-full h-96 scale-120"
                   style={{
                     background: `url(${
                       appconfig.url + "/img/concerts/" + con.coverImage
                     })`,
-                    backgroundSize: "contain",
+                    backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                   }}
@@ -139,7 +139,10 @@ const Home = () => {
       <div className="grid items-center justify-items-center grid-cols-2 gap-12 w-9/12 ">
         {concerts.slice(0, 4).map((concert) => (
           <Link
-            className={concert.isActive && "hover:brightness-125"}
+            className={
+              new Date(concert.timing.from) > new Date(Date.now()) &&
+              "hover:brightness-125"
+            }
             to={"/concert/" + concert._id}
           >
             <ConcertCard concert={concert} />

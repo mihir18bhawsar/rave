@@ -6,13 +6,13 @@ const ConcertCard = ({ concert }) => {
   return (
     <div
       className={
-        (!concert.isActive
+        (new Date(concert.timing.from) < new Date(Date.now())
           ? "opacity-80 brightness-125 contrast-50 "
           : "opacity-100 ") +
         "w-96 h-auto flex cursor-pointer flex-col relative px-0 pb-4 rounded-3xl bg-gray-400 items-center justify-center gap-4"
       }
     >
-      {!concert.isActive && (
+      {new Date(concert.timing.from) < new Date(Date.now()) && (
         <div
           style={{
             textShadow:

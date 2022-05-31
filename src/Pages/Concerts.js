@@ -164,7 +164,7 @@ const Concerts = () => {
           {concerts.map((concert) => (
             <Link
               className={
-                concert.isActive
+                new Date(concert.timing.from) > new Date(Date.now())
                   ? "hover:brightness-125"
                   : "pointer-events-none"
               }

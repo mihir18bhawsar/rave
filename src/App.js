@@ -31,7 +31,7 @@ function App() {
       <Router history={history}>
         <Background />
         <SessionCheck />
-        <div className="relative w-full py-16">
+        <div className="relative w-full pt-16">
           <Topbar />
           <ToastContainer
             draggable={false}
