@@ -34,12 +34,28 @@ const Signup = () => {
   const onSubmit = async (formdata) => {
     setLoading(true);
     let res;
+    const und = {
+      contactNumber: undefined,
+      accountNum: undefined,
+      bankName: undefined,
+      ifscCode: undefined,
+    };
     try {
-      res = await apiService.post("/user/signup", {
-        ...formdata,
-        role,
-        gender,
-      });
+      res = await apiService.post(
+        "/user/signup",
+        role == "customer"
+          ? {
+              ...formdata,
+              role,
+              gender,
+              ...und,
+            }
+          : {
+              ...formdata,
+              role,
+              gender,
+            }
+      );
       await dispatch(signup(res.data.token));
     } catch (err) {
       err.response.data.status === "fail" &&

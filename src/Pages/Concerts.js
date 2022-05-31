@@ -73,7 +73,7 @@ const Concerts = () => {
     const asyncCall = async () => {
       const cit = await apiService.get("/user/cities");
       setCities(cit.data.data.map((c) => c.name).sort());
-      const res = await apiService.get("/concert?page=" + page || "1");
+      const res = await apiService.get("/concert");
       setLoading(false);
       console.log(concerts[0]);
       setConcerts(res.data.data);
@@ -94,7 +94,7 @@ const Concerts = () => {
       setConcerts(unfiltered);
     };
     asyncCall();
-  }, [values, page, city, finalSearchValue]);
+  }, [values, city, finalSearchValue]);
   return loading ? (
     <Loading />
   ) : (
@@ -168,23 +168,12 @@ const Concerts = () => {
                   ? "hover:brightness-125"
                   : "pointer-events-none"
               }
-              to={"/concert" + concert._id}
+              to={"/concert/" + concert._id}
             >
               <ConcertCard concert={concert} />
             </Link>
           ))}
         </div>
-        <Pagination
-          className="invert "
-          color="primary"
-          count={
-            concerts.length % 10
-              ? parseInt(concerts.length / 10) + 1
-              : parseInt(concerts.length / 10)
-          }
-          page={page}
-          onChange={(e) => setPage(e.target.value)}
-        />
       </div>
     </div>
   );

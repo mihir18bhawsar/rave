@@ -137,10 +137,10 @@ const Home = () => {
         Latest Concerts
       </div>
       <div className="grid items-center justify-items-center grid-cols-2 gap-12 w-9/12 ">
-        {concerts.map((concert) => (
+        {concerts.slice(0, 4).map((concert) => (
           <Link
             className={concert.isActive && "hover:brightness-125"}
-            to={"/concert" + concert._id}
+            to={"/concert/" + concert._id}
           >
             <ConcertCard concert={concert} />
           </Link>

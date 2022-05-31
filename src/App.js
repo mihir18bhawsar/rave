@@ -14,6 +14,7 @@ import NotFound from "./Components/NotFound";
 import ManagerRequests from "./Pages/ManagerRequests";
 import Concerts from "./Pages/Concerts";
 import ConcertPage from "./Pages/ConcertPage";
+import EditConcert from "./Pages/EditConcert";
 
 function App() {
   const toastredux = useSelector((state) => state.toast);
@@ -48,7 +49,9 @@ function App() {
               />
             )}
             <Route exact path="/concert/:id" component={ConcertPage} />
-
+            {role === "manager" && (
+              <Route exact path="/concert/:id/edit" component={EditConcert} />
+            )}
             <Route exact path="/concerts" component={Concerts} />
             <Route exact path="/login" component={Login} />
             <Route exact path={"/signup"} component={Signup} />

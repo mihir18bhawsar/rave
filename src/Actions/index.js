@@ -17,6 +17,7 @@ export const login = (token) => async (dispatch) => {
   const userid = await jwtDecode(token);
   await sessionStorage.setItem("token", token);
   await dispatch({ type: "LOGIN", payload: true });
+  await dispatch({ type: "SET_USER", payload: userid.id });
   if (userid?.role === "customer") {
     await dispatch(setRole("customer"));
   } else if (userid?.role === "manager") {
@@ -30,6 +31,7 @@ export const signup = (token) => async (dispatch) => {
   const userid = await jwtDecode(token);
   await sessionStorage.setItem("token", token);
   await dispatch({ type: "SIGNUP", payload: true });
+  await dispatch({ type: "SET_USER", payload: userid.id });
   if (userid?.role === "customer") {
     await dispatch(setRole("customer"));
     dispatch(toastMessage(1, "Your Account is Created successfully!"));
