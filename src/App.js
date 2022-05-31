@@ -12,6 +12,8 @@ import Topbar from "./Components/Topbar";
 import SessionCheck from "./Components/SessionCheck";
 import NotFound from "./Components/NotFound";
 import ManagerRequests from "./Pages/ManagerRequests";
+import Concerts from "./Pages/Concerts";
+import ConcertPage from "./Pages/ConcertPage";
 
 function App() {
   const toastredux = useSelector((state) => state.toast);
@@ -45,6 +47,9 @@ function App() {
                 component={ManagerRequests}
               />
             )}
+            <Route exact path="/concert/:id" component={ConcertPage} />
+
+            <Route exact path="/concerts" component={Concerts} />
             <Route exact path="/login" component={Login} />
             <Route exact path={"/signup"} component={Signup} />
             <Route path="*" component={NotFound} />

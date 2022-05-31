@@ -36,6 +36,18 @@ const Topbar = () => {
               Home
             </div>
           </Link>
+          <Link to={"/concerts"}>
+            <div
+              className="hover:scale-110 cursor-pointer duration-150 hover:underline"
+              style={{
+                textUnderlineOffset: 4,
+                textDecorationThickness: 2,
+                textDecorationColor: appconfig.color.font,
+              }}
+            >
+              Concerts
+            </div>
+          </Link>
           <div
             className="hover:scale-110 cursor-pointer duration-150 hover:underline"
             style={{
@@ -64,7 +76,7 @@ const Topbar = () => {
                   textDecorationThickness: 2,
                 }}
               >
-                Link2
+                Bookings
               </div>
             </>
           )}
