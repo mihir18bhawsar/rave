@@ -22,9 +22,12 @@ const Bookings = () => {
     <Loading />
   ) : (
     data.length > 0 && (
-      <div className="w-full h-full p-4">
-        <div className="w-full h-full flex flex-col items-center rounded-3xl bg-slate-600">
-          <div className="9/12 h-full grid grid-cols-4">
+      <div className="w-full h-full flex-col flex items-center p-8 ">
+        <div className="w-8/12 p-8 h-full opacity-75  flex flex-col items-center rounded-3xl bg-slate-800">
+          <div className="text-5xl p-4 mb-8 font-black text-yellow-400">
+            My Recent Bookings
+          </div>
+          <div className="w-full h-full gap-8 items-center justify-center justify-items-center grid grid-cols-2">
             {data.map((c) => (
               <ConcertCard concert={c} />
             ))}

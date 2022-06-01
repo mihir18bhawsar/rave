@@ -5,7 +5,14 @@ import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import appconfig from "../appconfig";
 import Loading from "../Components/Loading";
-import { Chip } from "@mui/material";
+import {
+  Chip,
+  FormControl,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toastMessage } from "../Actions";
@@ -14,6 +21,7 @@ import history from "../history";
 const ConcertPage = () => {
   const { id } = useParams();
   const [concert, setConcert] = useState();
+  const [quantity, setQuantity] = useState();
   const [loading, setLoading] = useState(true);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const role = useSelector((state) => state.role);
@@ -109,6 +117,21 @@ const ConcertPage = () => {
             </div>
           </div>
         )}
+        {isLoggedIn && (
+          <div className="w-5/12 mb-4 flex items-start">
+            <div className="w-3/12 invert">
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Qty</InputLabel>
+                <Input
+                  value={quantity}
+                  label="QTY"
+                  onChange={(e) => setQuantity(e.target.value)}
+                  type={"number"}
+                ></Input>
+              </FormControl>
+            </div>
+          </div>
+        )}
         {!isLoggedIn && new Date(concert.timing.from) > new Date(Date.now()) && (
           <div className={"w-5/12"}>
             <Link to="/login">
@@ -140,6 +163,7 @@ const ConcertPage = () => {
                     pathname: "/payment",
                     state: {
                       concert,
+                      quantity: quantity || 1,
                     },
                   });
                 }}

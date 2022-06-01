@@ -17,11 +17,14 @@ import ConcertPage from "./Pages/ConcertPage";
 import EditConcert from "./Pages/EditConcert";
 import StripePay from "./Components/StripePay";
 import Bookings from "./Pages/Bookings";
+import MyProfile from "./Pages/MyProfile";
+import EditProfile from "./Pages/EditProfile";
+import About from "./Pages/About";
 
 function App() {
   const toastredux = useSelector((state) => state.toast);
   const role = useSelector((state) => state.role);
-
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   useEffect(() => {
     if (toastredux.type === 0) {
       toast.error(toastredux.value);
@@ -42,7 +45,14 @@ function App() {
           />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
             <Route exact path={"/home"} component={Home} />
+            <Route exact path="/concert/:id" component={ConcertPage} />
+            <Route exact path="/concerts" component={Concerts} />
+            <Route exact path={"/bookings"} component={Bookings}></Route>
+            <Route exact path={"/payment"} component={StripePay}></Route>
+            <Route exact path={"/signup"} component={Signup} />
+            <Route exact path="/login" component={Login} />
             {role === "admin" && (
               <Route
                 exact
@@ -50,15 +60,19 @@ function App() {
                 component={ManagerRequests}
               />
             )}
-            <Route exact path={"/bookings"} component={Bookings}></Route>
-            <Route exact path={"/payment"} component={StripePay}></Route>
-            <Route exact path="/concert/:id" component={ConcertPage} />
+            {isLoggedIn && (
+              <>
+                <Route
+                  exact
+                  path={"/profile/edit"}
+                  component={EditProfile}
+                ></Route>
+                <Route exact path={"/profile"} component={MyProfile}></Route>
+              </>
+            )}
             {role === "manager" && (
               <Route exact path="/concert/:id/edit" component={EditConcert} />
             )}
-            <Route exact path="/concerts" component={Concerts} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path={"/signup"} component={Signup} />
             <Route path="*" component={NotFound} />
           </Switch>
         </div>

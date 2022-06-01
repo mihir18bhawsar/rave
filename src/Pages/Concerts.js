@@ -162,16 +162,15 @@ const Concerts = () => {
       <div style={{ flex: 3 }} className="items-center flex-col flex">
         <div className="grid items-center justify-items-center grid-cols-2 gap-12 p-10">
           {concerts.map((concert) => (
-            <Link
+            <div
               className={
                 new Date(concert.timing.from) > new Date(Date.now())
                   ? "hover:brightness-125"
                   : "pointer-events-none"
               }
-              to={"/concert/" + concert._id}
             >
               <ConcertCard concert={concert} />
-            </Link>
+            </div>
           ))}
         </div>
       </div>

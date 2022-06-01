@@ -5,13 +5,26 @@ import { logout } from "../Actions";
 import { useSelector, useDispatch } from "react-redux";
 import appconfig from "../appconfig";
 import logo from "../Assets/images/logo.png";
+import apiservice from "../Api/apiService";
+import Loading from "./Loading";
 
 const Topbar = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const role = useSelector((state) => state.role);
-
-  return (
+  const [profile, setProfile] = useState();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(true);
+    const x = async () => {
+      isLoggedIn && setProfile(await apiservice.get("/user/me"));
+      setLoading(false);
+    };
+    x();
+  }, [isLoggedIn]);
+  return loading ? (
+    <Loading />
+  ) : (
     <div
       style={{
         background:
@@ -48,15 +61,17 @@ const Topbar = () => {
               Concerts
             </div>
           </Link>
-          <div
-            className="hover:scale-110 cursor-pointer duration-150 hover:underline"
-            style={{
-              textUnderlineOffset: 4,
-              textDecorationThickness: 2,
-            }}
-          >
-            About
-          </div>
+          <Link to="/about">
+            <div
+              className="hover:scale-110 cursor-pointer duration-150 hover:underline"
+              style={{
+                textUnderlineOffset: 4,
+                textDecorationThickness: 2,
+              }}
+            >
+              About
+            </div>
+          </Link>
           {isLoggedIn && role === "admin" && (
             <>
               <Link
@@ -69,6 +84,10 @@ const Topbar = () => {
               >
                 Requests
               </Link>
+            </>
+          )}
+          {isLoggedIn && (
+            <Link to="/bookings">
               <div
                 className="hover:scale-110 cursor-pointer duration-150 hover:underline"
                 style={{
@@ -78,12 +97,25 @@ const Topbar = () => {
               >
                 Bookings
               </div>
-            </>
+            </Link>
+          )}
+          {isLoggedIn && role == "manager" && (
+            <Link to="/my-bookings">
+              <div
+                className="hover:scale-110 cursor-pointer duration-150 hover:underline"
+                style={{
+                  textUnderlineOffset: 4,
+                  textDecorationThickness: 2,
+                }}
+              >
+                Posted
+              </div>
+            </Link>
           )}
         </nav>
       </div>
       <nav className="flex justify-end gap-4 items-center w-3/12">
-        {isLoggedIn ? (
+        {isLoggedIn && profile ? (
           <>
             <div
               className="font-bold hover:scale-110 tracking-widest uppercase text-slate-800 text-sm cursor-pointer duration-150 "
@@ -95,7 +127,14 @@ const Topbar = () => {
             >
               Logout
             </div>
-            <AccountCircle className="text-slate-800 scale-125" />
+            <Link to="/profile">
+              <div className="w-10 h-10 rounded-full hover:scale-105 active:scale-95">
+                <img
+                  className="rounded-full border-4 border-slate-800"
+                  src={appconfig.url + "/img/users/" + profile.data.data.avatar}
+                ></img>
+              </div>
+            </Link>
           </>
         ) : (
           <>
