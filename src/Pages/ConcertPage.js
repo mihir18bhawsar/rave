@@ -52,7 +52,7 @@ const ConcertPage = () => {
           background:
             "linear-gradient(100deg,transparent 0%, transparent 52.8%,white 52.8%, white 53%, rgba(55,55,55,0.2) 53%, #283133 49%, #283133 100%)",
         }}
-        className="font-black pt-20 h-screen top-0 overflow-y-scroll flex flex-col gap-8 items-end w-full text-white"
+        className="font-black pt-20 pb-8 h-screen top-0 overflow-y-scroll flex flex-col gap-8 items-end w-full text-white"
       >
         <div className="my-4 text-yellow-400 text-5xl w-5/12">
           {concert.name}
@@ -96,6 +96,18 @@ const ConcertPage = () => {
             <div> Rs. {concert.price}</div>
           </div>
         </div>
+        {concert.optionalImages.length > 0 && (
+          <div className="w-5/12">
+            <div className="w-full grid grid-cols-2 gap-4 items-center text-center">
+              {concert.optionalImages.map((i) => (
+                <img
+                  src={appconfig.url + "/img/concerts/" + i}
+                  alt={"no pic"}
+                ></img>
+              ))}
+            </div>
+          </div>
+        )}
         {!isLoggedIn && new Date(concert.timing.from) > new Date(Date.now()) && (
           <div className={"w-5/12"}>
             <Link to="/login">
@@ -121,6 +133,15 @@ const ConcertPage = () => {
                     "linear-gradient(128deg, rgba(91,255,45,1) 34%, rgba(0,255,94,1) 100%)",
                 }}
                 className="pl-2 cursor-pointer hover:scale-105 active:scale-95 duration-200 font-bold items-center justify-center flex w-48 text-center p-2 py-4 gap-2 text-slate-800 mr-24 bg-yellow-400 rounded-xl"
+                onClick={async () => {
+                  try {
+                    await apiservice.get(
+                      "/user/checkout-session/" + concert._id
+                    );
+                  } catch (err) {
+                    dispatch(toastMessage(0, err.response.data.message));
+                  }
+                }}
               >
                 Book Now
               </div>

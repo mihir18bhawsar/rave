@@ -26,7 +26,7 @@ const ConcertCard = ({ concert }) => {
       <img
         className="rounded-2xl"
         src={appconfig.url + "/img/concerts/" + concert.coverImage}
-        alt="adf"
+        alt="no mage"
       ></img>
       <div className="w-full px-2 flex items-end justify-between">
         <div className="text-lg px-2 text-slate-900 font-bold">
