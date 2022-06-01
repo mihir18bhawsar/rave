@@ -20,6 +20,8 @@ import Bookings from "./Pages/Bookings";
 import MyProfile from "./Pages/MyProfile";
 import EditProfile from "./Pages/EditProfile";
 import About from "./Pages/About";
+import MyBookings from "./Pages/MyBookings";
+import CreateConcert from "./Pages/CreateConcert";
 
 function App() {
   const toastredux = useSelector((state) => state.toast);
@@ -53,6 +55,12 @@ function App() {
             <Route exact path={"/payment"} component={StripePay}></Route>
             <Route exact path={"/signup"} component={Signup} />
             <Route exact path="/login" component={Login} />
+            {role === "manager" && (
+              <>
+                <Route exact path="/my-bookings" component={MyBookings}></Route>
+                <Route exact path="/create-concert" component={CreateConcert} />
+              </>
+            )}
             {role === "admin" && (
               <Route
                 exact

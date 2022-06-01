@@ -117,7 +117,7 @@ const ConcertPage = () => {
             </div>
           </div>
         )}
-        {isLoggedIn && (
+        {isLoggedIn && concert.postedBy != me && (
           <div className="w-5/12 mb-4 flex items-start">
             <div className="w-3/12 invert">
               <FormControl fullWidth>
@@ -182,8 +182,13 @@ const ConcertPage = () => {
                     "linear-gradient(128deg, rgba(255,91,45,1) 34%, rgba(255,94,0,1) 100%)",
                 }}
                 className="pl-2 cursor-pointer hover:scale-105 active:scale-95 duration-200 font-bold items-center justify-center flex w-48 text-center p-2 py-4 gap-2 text-slate-800 mr-24 bg-yellow-400 rounded-xl"
+                onClick={async () => {
+                  await apiservice.delete(`/concert/${concert._id}`);
+                  await dispatch(toastMessage(1, "deleted successfuly"));
+                  history.push("/my-bookings");
+                }}
               >
-                Edit
+                Delete
               </div>
             </div>
           )}
