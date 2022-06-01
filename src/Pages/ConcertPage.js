@@ -97,12 +97,13 @@ const ConcertPage = () => {
           </div>
         </div>
         {concert.optionalImages.length > 0 && (
-          <div className="w-5/12">
-            <div className="w-full grid grid-cols-2 gap-4 items-center text-center">
+          <div className="w-5/12 p-4 pl-0">
+            <div className="w-full pr-10 grid grid-cols-2 gap-8 items-center  text-center">
               {concert.optionalImages.map((i) => (
                 <img
                   src={appconfig.url + "/img/concerts/" + i}
                   alt={"no pic"}
+                  className="rounded-xl"
                 ></img>
               ))}
             </div>
@@ -133,14 +134,13 @@ const ConcertPage = () => {
                     "linear-gradient(128deg, rgba(91,255,45,1) 34%, rgba(0,255,94,1) 100%)",
                 }}
                 className="pl-2 cursor-pointer hover:scale-105 active:scale-95 duration-200 font-bold items-center justify-center flex w-48 text-center p-2 py-4 gap-2 text-slate-800 mr-24 bg-yellow-400 rounded-xl"
-                onClick={async () => {
-                  try {
-                    await apiservice.get(
-                      "/user/checkout-session/" + concert._id
-                    );
-                  } catch (err) {
-                    dispatch(toastMessage(0, err.response.data.message));
-                  }
+                onClick={() => {
+                  history.push({
+                    pathname: "/payment",
+                    state: {
+                      concert,
+                    },
+                  });
                 }}
               >
                 Book Now
