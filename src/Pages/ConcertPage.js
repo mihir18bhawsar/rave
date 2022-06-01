@@ -123,6 +123,7 @@ const ConcertPage = () => {
               </div>
             </Link>
           </div>
+          //
         )}
         {isLoggedIn &&
           concert.postedBy != me &&
