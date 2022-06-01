@@ -3,7 +3,7 @@ import apiservice from "../Api/apiService";
 import Loading from "../Components/Loading";
 import ConcertCard from "../Components/ConcertCard";
 
-const Bookings = () => {
+const MyBookings = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -35,4 +35,4 @@ const Bookings = () => {
   );
 };
 
-export default Bookings;
+export default MyBookings;
