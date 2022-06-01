@@ -176,6 +176,7 @@ const ConcertPage = () => {
           concert.postedBy == me &&
           new Date(concert.timing.from) > new Date(Date.now()) && (
             <div className={"w-5/12"}>
+              {/* jk */}
               <div
                 style={{
                   background:
