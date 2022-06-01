@@ -16,6 +16,7 @@ import Concerts from "./Pages/Concerts";
 import ConcertPage from "./Pages/ConcertPage";
 import EditConcert from "./Pages/EditConcert";
 import StripePay from "./Components/StripePay";
+import Bookings from "./Pages/Bookings";
 
 function App() {
   const toastredux = useSelector((state) => state.toast);
@@ -49,6 +50,7 @@ function App() {
                 component={ManagerRequests}
               />
             )}
+            <Route exact path={"/bookings"} component={Bookings}></Route>
             <Route exact path={"/payment"} component={StripePay}></Route>
             <Route exact path="/concert/:id" component={ConcertPage} />
             {role === "manager" && (
