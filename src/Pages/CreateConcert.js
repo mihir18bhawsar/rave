@@ -42,8 +42,12 @@ const CreateConcert = () => {
     form.append("timing[to]", timingTo);
     form.append("timing[from]", timingFrom);
     form.append("coverImage", cover);
-    for (let i = 0; i < optional.length; i++) {
-      form.append(`optionalImages[${i}]`, optional[i]);
+    var ins = document.getElementById("filesToUpload").files.length;
+    for (var x = 0; x < ins; x++) {
+      form.append(
+        "optionalImages",
+        document.getElementById("filesToUpload").files[x]
+      );
     }
 
     artists.map((a, i) => form.append(`artist[${i}]`, a));
@@ -55,6 +59,7 @@ const CreateConcert = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      history.push("/");
     } catch (err) {
       alert(err?.message || "invalid data");
     }
@@ -220,6 +225,7 @@ const CreateConcert = () => {
               <label className="text-white pb-2">optional Image</label>
               <input
                 type="file"
+                id="filesToUpload"
                 multiple
                 className="outline-0 border-0 p-2 rounded-xl"
                 placeholder="Cover"
