@@ -10,9 +10,11 @@ const MyProfile = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
+    console.log("here");
     const x = async () => {
       const me = await apiservice.get("/user/me");
-      setInfo(me.data.data);
+      setInfo(me.data?.data || me.data);
+      console.log(me.data.data);
       setLoading(false);
     };
     x();

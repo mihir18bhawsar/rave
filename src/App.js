@@ -55,6 +55,16 @@ function App() {
             <Route exact path={"/payment"} component={StripePay}></Route>
             <Route exact path={"/signup"} component={Signup} />
             <Route exact path="/login" component={Login} />
+            {isLoggedIn && (
+              <Route exact path={"/profile"} component={MyProfile}></Route>
+            )}
+            {isLoggedIn && (
+              <Route
+                exact
+                path={"/profile/edit"}
+                component={EditProfile}
+              ></Route>
+            )}
             {role === "manager" && (
               <>
                 <Route exact path="/my-bookings" component={MyBookings}></Route>
@@ -67,16 +77,6 @@ function App() {
                 path="/managers/requests"
                 component={ManagerRequests}
               />
-            )}
-            {isLoggedIn && (
-              <>
-                <Route
-                  exact
-                  path={"/profile/edit"}
-                  component={EditProfile}
-                ></Route>
-                <Route exact path={"/profile"} component={MyProfile}></Route>
-              </>
             )}
             {role === "manager" && (
               <Route exact path="/concert/:id/edit" component={EditConcert} />

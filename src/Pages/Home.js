@@ -96,7 +96,7 @@ const Home = () => {
             width={"90vw"}
           >
             {concerts.map((con) => (
-              <Link to={"/concert/" + con._id}>
+              <Link to={"/concerts"}>
                 <div
                   className="w-full h-96 scale-120"
                   style={{
@@ -138,15 +138,14 @@ const Home = () => {
       </div>
       <div className="grid items-center justify-items-center grid-cols-2 gap-12 w-9/12 ">
         {concerts.slice(0, 4).map((concert) => (
-          <Link
+          <div
             className={
               new Date(concert.timing.from) > new Date(Date.now()) &&
               "hover:brightness-125"
             }
-            to={"/concert/" + concert._id}
           >
             <ConcertCard concert={concert} />
-          </Link>
+          </div>
         ))}
       </div>
     </div>

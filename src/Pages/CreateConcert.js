@@ -45,11 +45,15 @@ const CreateConcert = () => {
     artists.map((a, i) => form.append(`artist[${i}]`, a));
     tags.map((t, i) => form.append(`tags[${i}]`, t));
 
-    await apiService.post("/concert/create", form, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    try {
+      await apiService.post("/concert/create", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    } catch (err) {
+      alert(err?.message || "invalid data");
+    }
   };
 
   return loading ? (
@@ -123,6 +127,7 @@ const CreateConcert = () => {
                   e.preventDefault();
                   if (artist) {
                     setArtists([...artists, artist]);
+                    setArtist("");
                     console.log(artists);
                   }
                 }}
@@ -146,6 +151,7 @@ const CreateConcert = () => {
                   e.preventDefault();
                   if (tag) {
                     setTags([...tags, tag]);
+                    setTag("");
                     console.log(tags);
                   }
                 }}
