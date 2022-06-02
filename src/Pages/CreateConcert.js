@@ -42,6 +42,10 @@ const CreateConcert = () => {
     form.append("timing[to]", timingTo);
     form.append("timing[from]", timingFrom);
     form.append("coverImage", cover);
+    for (let i = 0; i < optional.length; i++) {
+      form.append(`optionalImages[${i}]`, optional[i]);
+    }
+
     artists.map((a, i) => form.append(`artist[${i}]`, a));
     tags.map((t, i) => form.append(`tags[${i}]`, t));
 
@@ -210,6 +214,16 @@ const CreateConcert = () => {
                 className="outline-0 border-0 p-2 rounded-xl"
                 placeholder="Cover"
                 onChange={(e) => setCover(e.target.files[0])}
+              ></input>
+            </div>
+            <div className="flex flex-col items-center">
+              <label className="text-white pb-2">optional Image</label>
+              <input
+                type="file"
+                multiple
+                className="outline-0 border-0 p-2 rounded-xl"
+                placeholder="Cover"
+                onChange={(e) => setOptional(e.target.files)}
               ></input>
             </div>
             <Button
